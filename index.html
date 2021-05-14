@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="main.js"></script>
+    <script type="text/javascript" src="/upgrades.json"></script>
+    <title>Cookie Clicker</title>
+</head>
+
+<body>
+    <header>
+        <div class="welcome-title-container">
+            <h1 class="title">Welcome to Cookie Clicker</h1>
+            <p>This is a TEST! Are you sure that you want to continue?</p>
+        </div>
+    </header>
+
+    <div class="cookie-section">
+        <div class="cookie-container">
+            <div class="number-of-cookies">
+                <p class="text">Cookies eaten:</p>
+                <p class="number">0</p>
+            </div>
+            <div class="cookie">
+                <img class="cookie-image" src="images/cookie.svg" alt="Cookie" onclick="increaseCookies()">
+                <img class="cursor-image" src="images/cursor.png" alt="cursor">
+            </div>
+        </div>
+
+        <div class="upgrades-container">
+            <p class="text">Upgrades: </p>
+            <br>
+        </div>
+    </div>
+
+
+    <template id="upgrade-item-template">
+        <div class="upgrade-item-container">
+            <div class="upgrade-image-container"><img class="upgrade-image" src="" alt=""></div>
+            <div class="upgrade-item">
+                <div class="upgrade-item-description">
+                    <p class="upgrade-item-title"></p>
+                    <p class="upgrade-item-cost">Cost: <span class="cost"></span></p>
+                    <p class="upgrade-item-amount">Amount: <span class="amount"></span></p>
+                </div>
+                <div id="buy-upgrade-button" data-id="" data-cost="" onclick="buyUpgrade(event)">Buy</div>
+            </div>
+        </div>
+    </template>
+
+
+    <script src="main.js"></script>
+    <script>
+        let loadPage = function () {
+            let pageInfo = getFromLS();
+            loadUpgradeItems();
+
+            let data = getFromLS();
+
+            if (data["cookies"] == null) {
+                document.querySelector(".cookie-container .number-of-cookies .number").textContent = 0;
+            } else {
+                document.querySelector(".cookie-container .number-of-cookies .number").textContent = data[
+                    "cookies"];
+            }
+
+            interval = setInterval(increaseAutoCookies, 1000);
+        }
+
+        let reset = function () {
+            clearInterval(interval);
+            localStorage.clear()
+        }
+        let interval;
+        loadPage();
+    </script>
+</body>
+
+</html>
